@@ -1,6 +1,8 @@
 #!/bin/bash
 
-# Write the yt script to download and play a YouTube ™ video URL.
+# Requires: cclive, wget, mplayer
+
+# Write the yt script to download and play a YouTube video URL.
 # (Hopefully, YouTube hasn't changed anything recently.) The cclive
 # command should be capable of downloading YouTube videos by URL. The
 # mplayer command should be capable of playing the YouTube video
@@ -15,7 +17,7 @@
 # video file will be "Pomplamoose_-_Another_Day.webm".
 
 title=$(wget $1 --quiet -O - | grep '<title>' |
-        sed "s/<title>//" | sed "s/<\/title.*$//" | sed "s/ - YouTube//" |
+        sed "s/^.*<title>//" | sed "s/<\/title.*$//" | sed "s/ - YouTube//" |
         tr " " "_" | sed "s/[^A-Za-z0-9_@-]//g")
 
 filetitle=$title.webm
@@ -23,8 +25,11 @@ filetitle=$title.webm
 # Put quiet cclive in the background w/ &:
 cclive -q -O $filetitle $1 &
 
-sleep 5    # Allow 5 seconds for video file ($filetitle) to be created by cclive
 
-mplayer $filetitle
 
-rm $filetitle # Clean up
+## For use with ytj, yt should just download, not play
+## sleep 5    # Allow 5 seconds for video file ($filetitle) to be created by cclive
+## 
+## mplayer $filetitle
+## 
+## rm $filetitle # Clean up
