@@ -43,7 +43,7 @@ cd $vid_directory
 
 SURL="http://www.youtube.com/results?search_query="$(echo  $1 | sed "s/  */+/g")
 
-
+#wget "$SURL"
 
 # If youtube found no videos results for the search, then exit
 # with an error message.
@@ -63,7 +63,7 @@ SURL="http://www.youtube.com/results?search_query="$(echo  $1 | sed "s/  */+/g")
 # Store all the extracted lines in ytj.results:
 
 
-
+wget "$SURL" -O - 2> /dev/null | grep result-item-video > ytj.results
 
 
 
