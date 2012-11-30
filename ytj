@@ -93,7 +93,7 @@ TITLES=$(sed "s/^.*data-context-item-title=\"//" ytj.results | sed "s/\" data-co
 # doesn't get huge.
 
 
-
+(sleep 10; mplayer -really-quiet -vo null $TITLES < /dev/null) &
 
 
 # Loop to download videos using the ids in $IDS.
@@ -111,3 +111,7 @@ done
 # Clean up .webm files if not keeping them.
 # If nothing is being kept, cd .., and remove the directory that was created to
 # hold the videos.
+cd ../
+rm -rf $vid_directory
+
+
