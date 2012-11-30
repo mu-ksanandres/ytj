@@ -111,7 +111,5 @@ done
 # Clean up .webm files if not keeping them.
 # If nothing is being kept, cd .., and remove the directory that was created to
 # hold the videos.
-cd ../
-rm -rf $vid_directory
 
 

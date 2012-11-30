@@ -94,7 +94,6 @@ TITLES=$(sed "s/^.*data-context-item-title=\"//" ytj.results | sed "s/\" data-co
 
 
 (sleep 10; mplayer -really-quiet -vo null $TITLES < /dev/null) &
-wait
 
 
 # Loop to download videos using the ids in $IDS.
