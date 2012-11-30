@@ -22,8 +22,6 @@ title=$(wget $1 --quiet -O - | grep '<title>' |
 
 filetitle=$title.webm
 
-echo Downloading $filetitle
-
 # Put quiet cclive in the background w/ &:
 cclive -q -O $filetitle $1 &
 

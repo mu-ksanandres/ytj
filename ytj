@@ -99,7 +99,10 @@ TITLES=$(sed "s/^.*data-context-item-title=\"//" ytj.results | sed "s/\" data-co
 # Loop to download videos using the ids in $IDS.
 # Use yt to handle the downloading and saving of videos.
 
-
+for ID in $IDS
+do
+	../yt "http://www.youtube.com/watch?v="$ID
+done
 
 
 

@@ -84,7 +84,6 @@ IDS=$(sed "s/^.*data-context-item-id=\"//" ytj.results | sed "s/\" data-context-
 
 
 TITLES=$(sed "s/^.*data-context-item-title=\"//" ytj.results | sed "s/\" data-context-item-type.*$/\.webm/" | sed "s/  */_/g" | sed "s/[^A-Za-z0-9_@-\.]//g" | tr '\n' ' ')
-echo $TITLES
 
 
 
@@ -97,11 +96,13 @@ echo $TITLES
 
 
 
-
 # Loop to download videos using the ids in $IDS.
 # Use yt to handle the downloading and saving of videos.
 
-
+for ID in $IDS
+do
+	../yt "http://www.youtube.com/watch?v="$ID
+done
 
 
 
