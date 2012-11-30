@@ -13,7 +13,7 @@
 
 # Parse command line arguments to set behavior of script.
 # Display usage if necessary.
-# If '-k' use 'shift' command until the youtube search
+# If '-k' or '-l' options used, use 'shift' command until the youtube search
 # term argument is $1.
 keepfile=false
 
@@ -101,6 +101,13 @@ IDS=$(sed "s/^.*data-context-item-id=\"//" ytj.results | sed "s/\" data-context-
 TITLES=$(sed "s/^.*data-context-item-title=\"//" ytj.results | sed "s/\" data-context-item-type.*$/\.webm/" | sed "s/  */_/g" | sed "s/[^A-Za-z0-9_@-\.]//g" | tr '\n' ' ')
 
 
+
+# Schedule mplayer to start playing the list of files in $TITLES
+# after about 10 seconds.  Use nohup.
+# Make mplayer play the files "really quietly," so that nohup.out
+# doesn't get huge.
+
+
 # Loop to download videos using the ids in $IDS.
 # Use yt to handle the downloading and saving of videos.
 
@@ -109,10 +116,6 @@ do
 	../yt "http://www.youtube.com/watch?v="$ID
 done
 
-# Schedule mplayer to start playing the list of files in $TITLES
-# after about 10 seconds.  Use nohup.
-# Make mplayer play the files "really quietly," so that nohup.out
-# doesn't get huge.
 
 (sleep 10; mplayer -really-quiet -vo null $TITLES < /dev/null) &
 
