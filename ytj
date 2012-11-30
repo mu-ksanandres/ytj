@@ -4,7 +4,9 @@
 
 # Depends on wget, UNIX text processing utilities, yt, mplayer
 
-
+# Gary Kagan
+# Valeria Guzman 
+# Kyle San Andres
 
 
 
@@ -13,9 +15,22 @@
 # Display usage if necessary.
 # If '-k' or '-l' options used, use 'shift' command until the youtube search
 # term argument is $1.
+keepfile=false
+
+USAGE="Usage: -h: display a usage statement (also displayed if ytj is called with no
+        arguments)
+    -k: keep downloaded video files (default behavior is to delete all
+        downloaded flv files after they have been played.
+    -l: (Optional) (I'm feeling *l*ucky) download and play only the
+        first search result."
 
 
-
+for option in "$@"; do
+	case ${option} in
+		-h ) echo "$USAGE"; exit ;;
+		-k ) echo -k keep downloaded video files default behavior is to delete all downloaded flv files after they have been played. ; $keepfile=true; shift ;;
+	esac
+done
 
 
 
@@ -93,9 +108,6 @@ TITLES=$(sed "s/^.*data-context-item-title=\"//" ytj.results | sed "s/\" data-co
 # doesn't get huge.
 
 
-(sleep 10; mplayer -really-quiet -vo null $TITLES < /dev/null) &
-
-
 # Loop to download videos using the ids in $IDS.
 # Use yt to handle the downloading and saving of videos.
 
@@ -105,11 +117,22 @@ do
 done
 
 
+(sleep 10; mplayer -really-quiet -vo null $TITLES < /dev/null) &
 
 
 # Clean up any temporary files.
 # Clean up .webm files if not keeping them.
 # If nothing is being kept, cd .., and remove the directory that was created to
 # hold the videos.
+
+rm -f ytj.results
+
+if [ !$keepfile ]
+then
+	rm -f *.webm
+	cd ../
+	rm -rf $vid_directory
+fi
+	
 
 
